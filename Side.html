@@ -60,7 +60,7 @@ function create(){
 
     // chargement du jeu de tuiles
     const tileset = carteDuNiveau.addTilesetImage(
-      "final05",
+      "tile_set_final",
       "phaser_tuiles_jeu"
     );
 
@@ -87,8 +87,7 @@ function create(){
         "background_principal_01",
         tileset
     );
-    console.log("test2");
-    console.log(background_principal_01);
+
     player = this.physics.add.sprite(100, 450, 'perso'); // La 1ère ligne permet de générer le sprite du personnage à partir de la spritesheet. La 2nde définit un rebond lors du contact avec le sol. La 3e et la 4e permettent au personnage de collisionner respectivement avec les bords du niveau et avec les plateformes..
 
     player.setBounce(0.2);
@@ -122,21 +121,21 @@ function create(){
     background_principal_01.setCollisionByProperty({ estSolide: true }); 
 
     // ajout d'une collision entre le joueur et le calque plateformes
-    this.physics.add.collider(player, platforms); 
+    this.physics.add.collider(player, background_principal_01); 
 
 
     // redimentionnement du monde avec les dimensions calculées via tiled
-    this.physics.world.setBounds(0, 0, 3200, 640);
+    this.physics.world.setBounds(0, 0, 1600, 1600);
     
     //  ajout du champs de la caméra de taille identique à celle du monde
-    this.cameras.main.setBounds(0, 0, 3200, 640);
+    this.cameras.main.setBounds(0, 0, 1600, 1600);
     
     // ancrage de la caméra sur le joueur
     this.cameras.main.startFollow(player); 
-
+/*
     if (cursors.up.isDown && player.body.blocked.down) {
           player.setVelocityY(-200);
-    }  
+    }  */ 
 
 }
 
