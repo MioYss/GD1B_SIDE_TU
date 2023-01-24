@@ -64,23 +64,26 @@ function create(){
       "phaser_tuiles_jeu"
     );
 
-    // chargement du calque background_02 (les élements qui passent devant le joueur)
-    const background_02 = carteDuNiveau.createLayer(
-        "background_02",
-        tileset
-        );
 
-    // chargement du calque background_03
-    const background_03 = carteDuNiveau.createLayer(
-        "background_03",
-        tileset
-    ); 
 
     // chargement du calque background_01
     const background_01 = carteDuNiveau.createLayer(
         "background_01",
         tileset
     ); 
+
+        // chargement du calque background_03
+    const background_03 = carteDuNiveau.createLayer(
+        "background_03",
+        tileset
+    ); 
+    
+    // chargement du calque background_02 (les élements qui passent devant le joueur)
+    const background_02 = carteDuNiveau.createLayer(
+        "background_02",
+        tileset
+        );
+
 
     // chargement du calque background_principal_01 (platfromes)
     const background_principal_01 = carteDuNiveau.createLayer(
