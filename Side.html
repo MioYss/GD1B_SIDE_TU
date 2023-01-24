@@ -32,13 +32,12 @@ var config = {
 
 new Phaser.Game(config);
 
-
-//---------------------------------------------------------------------------------------
-//---------------------------------FONCTION PRELOAD---------------------------------------
-//---------------------------------------------------------------------------------------
+/////////////////////////////////////////////////////////////////////////////////////////
+//---------------------------------FONCTION PRELOAD------------------------------------//
+/////////////////////////////////////////////////////////////////////////////////////////
 function preload(){
     // chargement tuiles de jeu
-    this.load.image("Phaser_tuiles_jeu", "assets/tuiles_jeu.png");
+    this.load.image("phaser_tuiles_jeu", "assets/tuiles_jeu.png");
 
     // chargement de la carte
     this.load.tilemapTiledJSON("carte", "assets/map.json");
@@ -49,10 +48,11 @@ function preload(){
 var platforms;
 var player;
 var cursors;
+var clavier;
 
-//---------------------------------------------------------------------------------------
-//---------------------------------FONCTION CREATE---------------------------------------
-//---------------------------------------------------------------------------------------
+/////////////////////////////////////////////////////////////////////////////////////////
+//---------------------------------FONCTION CREATE-------------------------------------//
+/////////////////////////////////////////////////////////////////////////////////////////
 function create(){
     console.log(this)
     // chargement de la carte
@@ -60,8 +60,8 @@ function create(){
 
     // chargement du jeu de tuiles
     const tileset = carteDuNiveau.addTilesetImage(
-      "Final 04",
-      "Phaser_tuiles_jeu"
+      "final05",
+      "phaser_tuiles_jeu"
     );
 
     // chargement du calque background_02 (les élements qui passent devant le joueur)
@@ -87,7 +87,8 @@ function create(){
         "background_principal_01",
         tileset
     );
-
+    console.log("test2");
+    console.log(background_principal_01);
     player = this.physics.add.sprite(100, 450, 'perso'); // La 1ère ligne permet de générer le sprite du personnage à partir de la spritesheet. La 2nde définit un rebond lors du contact avec le sol. La 3e et la 4e permettent au personnage de collisionner respectivement avec les bords du niveau et avec les plateformes..
 
     player.setBounce(0.2);
@@ -121,7 +122,7 @@ function create(){
     background_principal_01.setCollisionByProperty({ estSolide: true }); 
 
     // ajout d'une collision entre le joueur et le calque plateformes
-    this.physics.add.collider(player, plateforms); 
+    this.physics.add.collider(player, platforms); 
 
 
     // redimentionnement du monde avec les dimensions calculées via tiled
@@ -133,16 +134,16 @@ function create(){
     // ancrage de la caméra sur le joueur
     this.cameras.main.startFollow(player); 
 
-    if (clavier.up.isDown && player.body.blocked.down) {
+    if (cursors.up.isDown && player.body.blocked.down) {
           player.setVelocityY(-200);
     }  
 
 }
 
 
-//---------------------------------------------------------------------------------------
-//---------------------------------FONCTION UPDATE---------------------------------------
-//---------------------------------------------------------------------------------------
+/////////////////////////////////////////////////////////////////////////////////////////
+//---------------------------------FONCTION UPDATE-------------------------------------//
+/////////////////////////////////////////////////////////////////////////////////////////
 function update(){
 
     if (cursors.left.isDown){ //si la touche gauche est appuyée
