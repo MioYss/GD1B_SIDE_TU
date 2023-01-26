@@ -26,7 +26,7 @@ var config = {
     arcade: {
         gravity: { y: 300 },
         debug: true
-    }},
+    }},input:{gamepad:true},
     scene: {preload: preload, create: create, update: update }
 };
 
@@ -49,7 +49,6 @@ var platforms;
 var player;
 var cursors;
 var clavier;
-
 /////////////////////////////////////////////////////////////////////////////////////////
 //---------------------------------FONCTION CREATE-------------------------------------//
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -115,7 +114,7 @@ function create(){
     });
     
     cursors = this.input.keyboard.createCursorKeys(); // permet, lors de la mise en place du jeu, de générer la prise en charge des touches directionnelles du clavier.
-
+    
 
     // définition des tuiles de plateformes qui sont solides
     // utilisation de la propriété estSolide
@@ -135,14 +134,34 @@ function create(){
     // ancrage de la caméra sur le joueur
     this.cameras.main.startFollow(player);
 
+    //Definie à l'avance que les touche de la mentte existe
+    //mon_pad={A:false, B:false, X:false, Y:false, leftStick:false, left:fasle, rightStick: fasle, right:false, up:false, down:false }
+
 }
 
+
+/////////////////////////////////////////////////////////////////////////////////////////
+//---------------------------------FONCTION DUMP-------------------------------------//
+/////////////////////////////////////////////////////////////////////////////////////////
+//function dump() {
+
+//console.log(pad1._axes[0]);
+//console.log(pad1._rawPad.axes[0]);
+
+//}
 
 /////////////////////////////////////////////////////////////////////////////////////////
 //---------------------------------FONCTION UPDATE-------------------------------------//
 /////////////////////////////////////////////////////////////////////////////////////////
 function update(){
 
+    this.input.gamepad.once('connected', function (pad) {
+        // 'pad' est une référence à la manette qui vient d’être connectée
+        mon_pad = pad;
+        });
+
+
+     //   if(mon_pad.B == true)
     if (cursors.left.isDown){ //si la touche gauche est appuyée
         player.setVelocityX(-160); //alors vitesse négative en X
         player.anims.play('left', true); //et animation => gauche
@@ -161,6 +180,7 @@ function update(){
     if (cursors.up.isDown && player.body.blocked.down){ //si touche haut appuyée ET que le perso touche le sol
         player.setVelocityY(-330); //alors vitesse verticale négative //(on saute)
     }
+
 
 }
 
