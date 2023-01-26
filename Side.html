@@ -113,7 +113,7 @@ function create(){
         frameRate: 10,
     repeat: -1
     });
-
+    
     cursors = this.input.keyboard.createCursorKeys(); // permet, lors de la mise en place du jeu, de générer la prise en charge des touches directionnelles du clavier.
 
 
@@ -130,10 +130,10 @@ function create(){
     
     //  ajout du champs de la caméra de taille identique à celle du monde
     this.cameras.main.setBounds(0, 0, 1600, 1600);
+    this.cameras.main.zoom = 1.5;
     
     // ancrage de la caméra sur le joueur
-    this.cameras.main.startFollow(player); 
-
+    this.cameras.main.startFollow(player);
 
 }
 
