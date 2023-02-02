@@ -54,6 +54,8 @@ var cursors;
 var clavier;
 var plateforme_mobile; 
 var tween_mouvement; 
+var ennemi;
+var allowGravity;
 /////////////////////////////////////////////////////////////////////////////////////////
 //---------------------------------FONCTION CREATE-------------------------------------//
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -86,6 +88,11 @@ function create(){
         tileset
         );
 
+    // chargement du calque background_principal_01 (platfromes)
+    const piques = carteDuNiveau.createLayer(
+        "piques",
+        tileset
+    );
 
     // chargement du calque background_principal_01 (platfromes)
     const background_principal_01 = carteDuNiveau.createLayer(
@@ -93,7 +100,8 @@ function create(){
         tileset
     );
 
-    player = this.physics.add.sprite(100, 450, 'perso'); // La 1ère ligne permet de générer le sprite du personnage à partir de la spritesheet. La 2nde définit un rebond lors du contact avec le sol. La 3e et la 4e permettent au personnage de collisionner respectivement avec les bords du niveau et avec les plateformes..
+    player = this.physics.add.sprite(100, 450, 'perso');
+    ennemi = this.physics; // La 1ère ligne permet de générer le sprite du personnage à partir de la spritesheet. La 2nde définit un rebond lors du contact avec le sol. La 3e et la 4e permettent au personnage de collisionner respectivement avec les bords du niveau et avec les plateformes..
 
     player.setBounce(0.2);
     player.setCollideWorldBounds(true);
@@ -147,6 +155,7 @@ function create(){
     982,
     "serpent"
     ); 
+
     plateforme_mobile.body.allowGravity = false;
     plateforme_mobile.body.immovable = true; 
     
@@ -162,6 +171,28 @@ function create(){
         repeatDelay: 1000, // deléi avant la répétition : temps que la plate-forme reste en bas
         repeat: -1 // répétition infinie 
     });
+
+
+    // définition des tuiles de plateformes qui sont solides
+            // utilisation de la propriété estSolide et estPointu
+            background_principal_01.setCollisionByProperty({ estSolide: true });
+            piques.setCollisionByProperty({ estPiege: true });
+
+            // ajout d'une collision entre le joueur, l'ennemi et le calque plateformes
+            this.physics.add.collider(player, background_principal_01);
+            this.collisionPics = this.physics.add.collider(player, piques, () => {
+                console.log("touche pics");
+                this.collisionPics.active = false;
+                setTimeout(() => {
+                    location.reload();
+                }, 450);
+                this.physics.pause();
+                player.setTint(0xff0000);
+            });
+            //this.physics.add.collider(ennemi, background_principal_01);
+            //this.physics.add.overlap(player,ennemi, () => {console.log("touche ennemi")});
+            //ennemi.body.allowGravity = false;
+            //ennemi.body.immovable = true;
 
 }
 
