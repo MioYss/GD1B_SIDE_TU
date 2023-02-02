@@ -205,26 +205,26 @@ function update(){
     }
 
     // Creation  du Wall Jump 
-    if (cursors.up.isDown && this.player.body.blocked.right || clavier.SPACE.isDown && this.player.body.blocked.right) {
+    if (cursors.up.isDown && player.body.blocked.right || clavier.SPACE.isDown && player.body.blocked.right) {
     if (wallJump == true) {
         wallJump = false;
         offTouche = true;
         setTimeout(cdWallJump, 500);
         setTimeout(blocageTouche, 200);
-        this.player.setVelocityY(-pDeplacementY);
-        this.player.setVelocityX(-50);
+        player.setVelocityY(-pDeplacementY);
+        player.setVelocityX(-50);
                         
         }
     }
 
-    if (cursors.up.isDown && this.player.body.blocked.left || clavier.SPACE.isDown && this.player.body.blocked.left) {
+    if (cursors.up.isDown && player.body.blocked.left || clavier.SPACE.isDown && player.body.blocked.left) {
         if (wallJump == true) {
             wallJump = false;
             offTouche = true;
             setTimeout(cdWallJump, 500);
             setTimeout(blocageTouche, 200);
-            this.player.setVelocityY(-pDeplacementY);
-            this.player.setVelocityX(50);
+            player.setVelocityY(-pDeplacementY);
+            player.setVelocityX(50);
                         
         }
     }
