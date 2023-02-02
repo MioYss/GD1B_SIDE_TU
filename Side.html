@@ -44,11 +44,16 @@ function preload(){
 
     this.load.spritesheet('perso','assets/perso.png',
         { frameWidth: 32, frameHeight: 48 });
+
+    this.load.image("serpent", "assets/snake.png"); 
+
 }
 var platforms;
 var player;
 var cursors;
 var clavier;
+var plateforme_mobile; 
+var tween_mouvement; 
 /////////////////////////////////////////////////////////////////////////////////////////
 //---------------------------------FONCTION CREATE-------------------------------------//
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -135,21 +140,36 @@ function create(){
     this.cameras.main.startFollow(player);
 
     //Definie à l'avance que les touche de la mentte existe
-    //mon_pad={A:false, B:false, X:false, Y:false, leftStick:false, left:fasle, rightStick: fasle, right:false, up:false, down:false }
+    mon_pad={A:false,leftStick:false, left:false, rightStick:false, right:false, up:false }
+
+    plateforme_mobile = this.physics.add.sprite(
+    350,
+    450,
+    "serpent"
+    ); 
+    plateforme_mobile.body.allowGravity = false;
+    plateforme_mobile.body.immovable = true; 
+    
+    tween_mouvement = this.tweens.add({
+        targets: [plateforme_mobile],  // on applique le tween sur platefprme_mobile
+        paused: false, // de base le tween est en pause
+        ease: "Linear",  // concerne la vitesse de mouvement : linéaire ici 
+        duration: 2000,  // durée de l'animation pour monter 
+        yoyo: true,   // mode yoyo : une fois terminé on "rembobine" le déplacement 
+        y: "-=300",   // on va déplacer la plateforme de 300 pixel vers le haut par rapport a sa position
+        delay: 0,     // délai avant le début du tween une fois ce dernier activé
+        hold: 1000,   // délai avant le yoyo : temps qeu al plate-forme reste en haut
+        repeatDelay: 1000, // deléi avant la répétition : temps que la plate-forme reste en bas
+        repeat: -1 // répétition infinie 
+    });
 
 }
 
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
-//---------------------------------FONCTION DUMP-------------------------------------//
 /////////////////////////////////////////////////////////////////////////////////////////
-//function dump() {
-
-//console.log(pad1._axes[0]);
-//console.log(pad1._rawPad.axes[0]);
-
-//}
+/////////////////////////////////////////////////////////////////////////////////////////
 
 // declaration variable  et fonction pour wall jump
 var wallJump = true;
@@ -171,19 +191,20 @@ function update(){
         // 'pad' est une référence à la manette qui vient d’être connectée
         mon_pad = pad;
         });
-
-
-     //   if(mon_pad.A == true)
      
-     //   if(mon_pad.B == true)
+    if(mon_pad.left == true){
+        player.setVelocityX(-160); //alors vitesse négative en X
+        player.anims.play('left', true); //et animation => gauche
+    }
 
-     //   if(mon_pad.X == true)
+    if(mon_pad.right == true){
+        player.setVelocityX(160); //alors vitesse positive en X
+        player.anims.play('right', true); //et animation => droite
+    }
 
-     //   if(mon_pad.Y == true)
-
-     //   if(mon_pad.up == true)
-
-     //   if(mon_pad.down == true)
+    if(mon_pad.A == true && player.body.blocked.down){
+        player.setVelocityY(-330); //alors vitesse verticale négative //(on saute)
+    }
 
     if (cursors.left.isDown){ //si la touche gauche est appuyée
         player.setVelocityX(-160); //alors vitesse négative en X
