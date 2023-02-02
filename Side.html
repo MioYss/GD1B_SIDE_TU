@@ -45,7 +45,7 @@ function preload(){
     this.load.spritesheet('perso','assets/perso.png',
         { frameWidth: 32, frameHeight: 48 });
 
-    this.load.image("serpent", "assets/snake.png"); 
+    this.load.image("serpent", "assets/snake01.png"); 
 
 }
 var platforms;
@@ -143,8 +143,8 @@ function create(){
     mon_pad={A:false,leftStick:false, left:false, rightStick:false, right:false, up:false }
 
     plateforme_mobile = this.physics.add.sprite(
-    350,
-    450,
+    700,
+    982,
     "serpent"
     ); 
     plateforme_mobile.body.allowGravity = false;
@@ -156,7 +156,7 @@ function create(){
         ease: "Linear",  // concerne la vitesse de mouvement : linéaire ici 
         duration: 2000,  // durée de l'animation pour monter 
         yoyo: true,   // mode yoyo : une fois terminé on "rembobine" le déplacement 
-        y: "-=300",   // on va déplacer la plateforme de 300 pixel vers le haut par rapport a sa position
+        x: "-=300",   // on va déplacer la plateforme de 300 pixel vers le haut par rapport a sa position
         delay: 0,     // délai avant le début du tween une fois ce dernier activé
         hold: 1000,   // délai avant le yoyo : temps qeu al plate-forme reste en haut
         repeatDelay: 1000, // deléi avant la répétition : temps que la plate-forme reste en bas
