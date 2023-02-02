@@ -114,7 +114,7 @@ function create(){
     });
     
     cursors = this.input.keyboard.createCursorKeys(); // permet, lors de la mise en place du jeu, de générer la prise en charge des touches directionnelles du clavier.
-    
+    clavier = this.input.keyboard.addKeys('Q,D,SPACE');
 
     // définition des tuiles de plateformes qui sont solides
     // utilisation de la propriété estSolide
@@ -140,6 +140,7 @@ function create(){
 }
 
 
+
 /////////////////////////////////////////////////////////////////////////////////////////
 //---------------------------------FONCTION DUMP-------------------------------------//
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -149,6 +150,17 @@ function create(){
 //console.log(pad1._rawPad.axes[0]);
 
 //}
+
+// declaration variable  et fonction pour wall jump
+var wallJump = true;
+var pDeplacementY = 210;
+function blocageTouche () {
+    offTouche = false;
+}
+function cdWallJump () {
+    wallJump = true;
+}
+
 
 /////////////////////////////////////////////////////////////////////////////////////////
 //---------------------------------FONCTION UPDATE-------------------------------------//
@@ -192,6 +204,30 @@ function update(){
         player.setVelocityY(-330); //alors vitesse verticale négative //(on saute)
     }
 
+    // Creation  du Wall Jump 
+    if (cursors.up.isDown && this.player.body.blocked.right || clavier.SPACE.isDown && this.player.body.blocked.right) {
+    if (wallJump == true) {
+        wallJump = false;
+        offTouche = true;
+        setTimeout(cdWallJump, 500);
+        setTimeout(blocageTouche, 200);
+        this.player.setVelocityY(-pDeplacementY);
+        this.player.setVelocityX(-50);
+                        
+        }
+    }
+
+    if (cursors.up.isDown && this.player.body.blocked.left || clavier.SPACE.isDown && this.player.body.blocked.left) {
+        if (wallJump == true) {
+            wallJump = false;
+            offTouche = true;
+            setTimeout(cdWallJump, 500);
+            setTimeout(blocageTouche, 200);
+            this.player.setVelocityY(-pDeplacementY);
+            this.player.setVelocityX(50);
+                        
+        }
+    }
 
 }
 
