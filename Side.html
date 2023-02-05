@@ -289,21 +289,47 @@ function update(){
     }
 
 }
-/////////////////////////////////////////////////////////////////////////////////////////
-//---------------------------------FRAMES INVU-----------------------------------------//
-/////////////////////////////////////////////////////////////////////////////////////////
+
 
 /////////////////////////////////////////////////////////////////////////////////////////
-//---------------------------------ENNEMIE DMG-----------------------------------------//
+//---------------------------------PV BAISSE / INVU / MORT / ENNEMIE DMG---------------//
 /////////////////////////////////////////////////////////////////////////////////////////
 
-/////////////////////////////////////////////////////////////////////////////////////////
-//---------------------------------PV BAISSE-------------------------------------------//
-/////////////////////////////////////////////////////////////////////////////////////////
+/*
+var pv = 0;
+var UI;
+var coeurUI;
 
-/////////////////////////////////////////////////////////////////////////////////////////
-//---------------------------------ENNEMIE DISPAWN-------------------------------------//
-/////////////////////////////////////////////////////////////////////////////////////////
+function create ()
+{
+
+    if physics.add.overlap(player, serpent, this);
+        pv =- 1 
+            if pv >= 0;  // Mort du joueur et recommence le jeu au début
+                setTimeout(() => {
+                location.reload();
+                }, 450);
+                this.physics.pause();
+                player.setTint(0xff0000);
+            });
+        function (baisseUI)
+}
+
+function (baisseUI){
+
+    coeurUI.disableBody(true, true); // fais disparaitre un coeur de l UI
+    function (invu)
+}
+
+function (invu){
+
+    function (baisseUI).delay.20 // empeche la function de perte de pv ce qui rend le personnage invulnerable
+    
+}
+
+
+
+*/
 
 /////////////////////////////////////////////////////////////////////////////////////////
 //---------------------------------ALTERATION DEPLACEMENT------------------------------//
@@ -332,10 +358,55 @@ function create ()
 */
 
 /////////////////////////////////////////////////////////////////////////////////////////
-//---------------------------------POWER UP--------------------------------------------//
+//---------------------------------POWER UP / ENNEMIE DISPAWN--------------------------//
 /////////////////////////////////////////////////////////////////////////////////////////
 
+/*
+var arme;
+var attaque;
 
+function preload ()
+{
+    this.load.atlas('arme', 'assets/epee.png');
+}
+
+function create ()
+{
+
+arme.iterate(function (powerUp) {
+
+this.physics.add.collider(player, arme);
+    //et collisionne avec les plateformes
+this.physics.add.overlap(player, power, collectArme, null, this);
+    });
+
+
+function power(player, arme){
+    arme.disableBody(true, true); // l’arme disparaît
+    player.add.attaque(); //Ajoute la possibiliter d'attaque au joueur
+}
+
+function attaque(player, power){
+    if(mon_pad.A == true && player.body.blocked.down){
+        this.anims.create({
+        key: 'attaque',
+        frames: [ { key: 'perso', frame: 12 } ], //La frame 12 n'existe pas mais fais reference a une animation d attaque
+        frameRate: 20
+        });
+    }
+    if (cursors.A.isOn){ //si la touche gauche est appuyée
+        this.anims.create({
+        key: 'attaque',
+        frames: [ { key: 'perso', frame: 12 } ],
+        frameRate: 20
+        });
+    }
+    if (this.anims.12 collider sprite "serpent");
+        serpent.disableBody(true, true);
+}
+
+
+*/
 
 </script>
 
